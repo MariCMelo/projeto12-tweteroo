@@ -29,6 +29,7 @@ app.post("/sign-up", (req, res) => {
 
     const newUser = { username, avatar };
     users.push(newUser);
+    console.log("testedddd")
     res.sendStatus(201);
 });
 
@@ -43,8 +44,20 @@ app.post("/tweets", (req, res) => {
         return res.status(422).send({ message: "Todos os campos são obrigatórios!" });
     }
     const newTweet = { username, tweet };
-  tweets.push(newTweet);
+  tweets.push(newTweet)
+  res.sendStatus(201)
 })
+
+app.get("/tweets", (req, res) => {
+    const recentTweets = tweets.slice(-10); // Retorna os 10 últimos tweets publicados
+
+    if (recentTweets.length === 0) {
+        return res.send([]);
+    }
+
+    res.send(recentTweets);
+});
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor está rodando na porta ${PORT}`));
